@@ -1,10 +1,10 @@
 # Cowin-Notifier-backend
 ### Cowin-Notifier-frontend - https://github.com/hemdeepsaini/Cowin-Notifier-frontend
 
-###backend Api endpoints
-SearchSpace for Pins: "/getPin"     @get
-Add Order: "/addOrder"    @Post
-Get Pending logs: "/getLog"     @get
+### backend Api endpoints
+SearchSpace for Pins: "/getPin"     @get<br>
+Add Order: "/addOrder"    @Post<br>
+Get Pending logs: "/getLog"     @get<br>
 
 
 ![2021-05-25 (2)](https://user-images.githubusercontent.com/45002972/120376557-a98bdd80-c339-11eb-8756-b17d7d060fe6.png)
