@@ -11,7 +11,7 @@ import json
 from .models import Order,Pin
 from .serializer import OrderSerializer,PinSerializer
 
-@csrf_exempt
+# @csrf_exempt
 def index(request):
     response = json.dumps([
     {
@@ -30,7 +30,8 @@ def getPin(request):
     response=PinSerializer(pin,many=True)
     return JsonResponse(response.data, safe=False)
 
-@csrf_exempt
+# @csrf_exempt
+@api_view(['POST'])
 def addOrder(request):
     if request.method == 'POST':
         payload = json.loads(request.body)
@@ -39,8 +40,10 @@ def addOrder(request):
         oAge = payload['age']
         oCount = 1
         order = Order(pin=oPin, email=oEmail,age=oAge,count=oCount)
+        porder=Pin(pin=oPin)
         try:
             order.save()
+            porder.save()
             response = json.dumps([{ 'Success': 'Order added successfully!'}])
         except:
             response = json.dumps([{ 'Error': 'Order could not be added!'}])

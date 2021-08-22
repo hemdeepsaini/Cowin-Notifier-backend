@@ -86,8 +86,8 @@ def sendEmail():
         from email.mime.multipart import MIMEMultipart
         from email.mime.text import MIMEText
        
-        your_email = "your_email"
-        your_password = " your_password"
+        your_email = ""
+        your_password = ""
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()
         server.login(your_email, your_password)
