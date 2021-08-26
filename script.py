@@ -16,7 +16,7 @@ class mail:
     self.pin = pin
     self.message = message
 
-async def checkAvailability():
+def checkAvailability():
     num_days = 2
     actual = datetime.today()
     list_format = [actual + timedelta(days=i) for i in range(num_days)]
@@ -54,17 +54,17 @@ async def checkAvailability():
                                         message+= " " + "\t Vaccine type: "+ str(session["vaccine"])
                                     message+= " " + "\n"
 
-        if counter!=0 or pincode=="462003":
+        if counter!=0:
             obj=mail(pincode,message) 
             if obj not in in_queue:
                 schedule.put(obj)
                 in_queue.add(obj)               
                 print("scheduled mails to "+pincode)
-                await asyncio.sleep(4)
+
 
     return None
 
-async def sendEmail():
+def sendEmail():
     if schedule.empty():
         return 1
 
@@ -86,8 +86,8 @@ async def sendEmail():
         from email.mime.multipart import MIMEMultipart
         from email.mime.text import MIMEText
        
-        your_email = "your_password"
-        your_password = "your_email"
+        your_email = "arnav4513@gmail.com"
+        your_password = "vanraqwerty"
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()
         server.login(your_email, your_password)
@@ -119,7 +119,6 @@ async def sendEmail():
             #delete order from Order
             del_ob= Order.objects.filter(id=order.pk)
             del_ob.delete()
-            await asyncio.sleep(2)
 
         server.quit()
         del_pin=Pin.objects.filter(pin=availablePin)
@@ -132,21 +131,19 @@ async def sendEmail():
     return None
 
 
-async def main():
+def main():
     
     while True:
         t0 = time.time()
-        await asyncio.wait( [
-            checkAvailability(),
-            sendEmail(),
-            ] )
+        checkAvailability(),
+        sendEmail(),
+            
         t1 = time.time()
         print('Took %.2f ms' % (1000*(t1-t0)))
 
         # To save resources on server sleep whole script for 3 minute 
-        time.sleep(60*3)
+        time.sleep(6)
     
     
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
-#loop.close()
+
+main()
